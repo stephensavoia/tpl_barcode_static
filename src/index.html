@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TPL Barcode Generator</title>
+    <meta
+      name="description"
+      content="Generate a wallpaper for your phone that doubles as your digital TPL library card."
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#304a92" />
+    <meta name="msapplication-TileColor" content="#304a92" />
+    <meta name="theme-color" content="#cfdce3" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container mx-auto max-w-md p-5 overflow-hidden">
+      <h1 class="max-w-md">
+        <span>TPL</span><span>BARCODE</span><span>GENERATOR</span>
+      </h1>
+      <div
+        data-testid="flowbite-card"
+        class="flex rounded-lg border border-gray-200 bg-white shadow-md flex-col max-w-md mb-8"
+      >
+        <div class="flex h-full flex-col justify-center gap-4 px-6 pt-6 pb-1">
+          <div class="flex max-w-md flex-col gap-4">
+            <div>
+              <div class="mb-2 block">
+                <label
+                  class="block text-md font-medium text-gray-900"
+                  data-testid="flowbite-label"
+                  for="cardNumber"
+                  >Library card number (14 digits)</label
+                >
+              </div>
+              <div class="flex">
+                <div class="relative w-full">
+                  <input
+                    class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 text-md rounded-lg"
+                    type="text"
+                    id="cardNumber"
+                    name="cardNumber"
+                    required=""
+                    pattern="\d{14}"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="block">
+            <span class="text-md font-medium text-gray-900"
+              >Select wallpaper design</span
+            >
+          </div>
+          <div class="h-[574px]">
+            <div
+              id="default-carousel"
+              class="relative h-full w-full"
+              data-carousel="static"
+              data-testid="carousel"
+            >
+              <div
+                class="flex h-full snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-lg snap-x overflow-hidden !overflow-x-hidden [overflow:-moz-scrollbars-none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:[-webkit-appearance:none !important] [&amp;::-webkit-scrollbar]:!hidden [&amp;::-webkit-scrollbar]:!h-0 [&amp;::-webkit-scrollbar]:!w-0 [&amp;::-webkit-scrollbar]:!bg-transparent"
+              >
+                <div
+                  class="w-full flex-shrink-0 transform snap-center hidden duration-700 ease-in-out"
+                  data-active="true"
+                  data-carousel-item
+                >
+                  <div
+                    class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex h-full items-center justify-center"
+                  >
+                    <label class="radio-img"
+                      ><input type="radio" name="design" value="0" />
+                      <div
+                        class="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[500px] w-[250px] shadow-xl"
+                      >
+                        <div
+                          class="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 -translate-y-0.5 absolute"
+                        ></div>
+                        <div
+                          class="rounded-[2rem] overflow-hidden w-[222px] h-[472px]"
+                        >
+                          <img
+                            src="/img/design-0.png"
+                            class="w-[222px] h-[472px]"
+                            alt="Barcode Wallpaper Design 0"
+                          />
+                        </div></div
+                    ></label>
+                  </div>
+                </div>
+                <div
+                  class="w-full flex-shrink-0 transform snap-center hidden duration-700 ease-in-out"
+                  data-active="false"
+                  data-carousel-item
+                >
+                  <div
+                    class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex h-full items-center justify-center"
+                  >
+                    <label class="radio-img"
+                      ><input type="radio" name="design" value="1" />
+                      <div
+                        class="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[500px] w-[250px] shadow-xl"
+                      >
+                        <div
+                          class="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 -translate-y-0.5 absolute"
+                        ></div>
+                        <div
+                          class="rounded-[2rem] overflow-hidden w-[222px] h-[472px]"
+                        >
+                          <img
+                            src="/img/design-1.png"
+                            class="w-[222px] h-[472px]"
+                            alt="Barcode Wallpaper Design 1"
+                          />
+                        </div></div
+                    ></label>
+                  </div>
+                </div>
+                <div
+                  class="w-full flex-shrink-0 transform snap-center hidden duration-700 ease-in-out"
+                  data-active="false"
+                  data-carousel-item
+                >
+                  <div
+                    class="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 flex h-full items-center justify-center"
+                  >
+                    <label class="radio-img"
+                      ><input type="radio" name="design" value="2" />
+                      <div
+                        class="relative mx-auto border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[500px] w-[250px] shadow-xl"
+                      >
+                        <div
+                          class="w-[148px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 -translate-y-0.5 absolute"
+                        ></div>
+                        <div
+                          class="rounded-[2rem] overflow-hidden w-[222px] h-[472px]"
+                        >
+                          <img
+                            src="/img/design-2.png"
+                            class="w-[222px] h-[472px]"
+                            alt="Barcode Wallpaper Design 2"
+                          />
+                        </div></div
+                    ></label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="absolute -translate-y-3 left-1/2 flex -translate-x-1/2 space-x-5"
+              >
+                <button
+                  type="button"
+                  class="h-3 w-3 rounded-full bg-[#304a92]"
+                  data-testid="carousel-indicator"
+                  aria-label="Slide 1"
+                  data-carousel-slide-to="0"
+                  aria-current="true"
+                ></button
+                ><button
+                  type="button"
+                  class="h-3 w-3 rounded-full bg-gray-200 border border-gray-300 hover:bg-gray-50"
+                  data-testid="carousel-indicator"
+                  aria-label="Slide 2"
+                  data-carousel-slide-to="1"
+                  aria-current="false"
+                ></button
+                ><button
+                  type="button"
+                  class="h-3 w-3 rounded-full bg-gray-200 border border-gray-300 hover:bg-gray-50"
+                  data-testid="carousel-indicator"
+                  aria-label="Slide 3"
+                  data-carousel-slide-to="2"
+                  aria-current="false"
+                ></button>
+              </div>
+              <div
+                class="absolute left-0 top-0 flex h-full items-center justify-center focus:outline-none"
+              >
+                <button
+                  class="group cursor-pointer"
+                  data-testid="carousel-left-control"
+                  type="button"
+                  aria-label="Previous slide"
+                  data-carousel-prev
+                >
+                  <span
+                    class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 border border-gray-300 group-hover:bg-gray-200 group-focus:outline-none group-focus:ring-2 group-focus:ring-cyan-500 md:h-10 md:w-10"
+                    ><svg
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="h-7 w-7 text-[#6B7280] sm:h-6 sm:w-6"
+                      height="1em"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 19l-7-7 7-7"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+              <div
+                class="absolute right-0 top-0 flex h-full items-center justify-center focus:outline-none"
+              >
+                <button
+                  class="group"
+                  data-testid="carousel-right-control"
+                  type="button"
+                  aria-label="Next slide"
+                >
+                  <span
+                    class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 border border-gray-300 group-hover:bg-gray-200 group-focus:outline-none group-focus:ring-2 group-focus:ring-cyan-500 md:h-10 md:w-10"
+                    ><svg
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                      class="h-7 w-7 text-[#6B7280] sm:h-6 sm:w-6"
+                      height="1em"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="group relative flex items-stretch justify-center p-0.5 text-center font-medium transition-[color,background-color,border-color,text-decoration-color,fill,stroke,box-shadow] focus:z-10 focus:outline-none border border-transparent bg-[#304a92] text-white focus:ring-4 focus:ring-blue-300 enabled:hover:bg-[#1f387a] rounded-lg -translate-y-6"
+          >
+            <span
+              class="flex items-stretch transition-all duration-200 rounded-md px-4 py-2 text-md"
+              >Generate Barcode</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

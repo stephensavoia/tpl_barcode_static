@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background-color: #cfdce3;
+}
+
+body {
+  font-family: "Maven Pro", sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #cfdce3;
+  /* background: #f9fafb
+      radial-gradient(circle at 25% 25%, #a4c6ed, #dbede2, #c2c5eb, #f2f2f2); */
+  min-height: 100vh;
+}
+
+h1 {
+  color: #1f387a;
+  text-align: center;
+  font-weight: 900;
+  line-height: 0.9;
+  margin: 1.5rem auto;
+  padding: 0 10px;
+  cursor: default;
+}
+h1 > span {
+  display: block;
+}
+h1 > span:first-child {
+  font-size: 8rem;
+}
+h1 > span:nth-child(2) {
+  font-size: 3rem;
+  margin: 0.1rem auto 0.4rem auto;
+}
+h1 > span:last-child {
+  font-size: 2.38rem;
+}
+
+.radio-img {
+  > input {
+    display: none;
+  }
+  translate: 0 -32px;
+}
+
+form > div > div > div > div > div > button {
+  translate: 0 -32px;
+}
