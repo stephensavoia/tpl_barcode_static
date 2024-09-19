@@ -101,30 +101,28 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Touch slide controls
-  // var touchStartX = 0;
-  // var touchEndX = 0;
+  var touchStartX = 0;
+  var touchEndX = 0;
 
-  // function handleTouchStart(event) {
-  //   console.log("Touch started", event);
-  //   touchStartX = event.targetTouches[0].clientX;
-  // }
+  function handleTouchStart(event) {
+    touchStartX = event.targetTouches[0].clientX;
+  }
 
-  // function handleTouchEnd(event) {
-  //   console.log("Touch ended", event);
-  //   touchEndX = event.changedTouches[0].clientX;
+  function handleTouchEnd(event) {
+    touchEndX = event.changedTouches[0].clientX;
 
-  //   if (touchStartX - touchEndX < -50) {
-  //     alert("Slide left");
-  //   } else if (touchStartX - touchEndX > 50) {
-  //     carousel.next();
-  //   }
-  // }
+    if (touchStartX - touchEndX < -50) {
+      carousel.prev();
+    } else if (touchStartX - touchEndX > 50) {
+      carousel.next();
+    }
+  }
 
-  // const label = document.querySelector(".radio-img");
-  // if (label) {
-  //   label.ontouchstart = handleTouchStart;
-  //   label.ontouchend = handleTouchEnd;
-  // }
+  const carouselSlideLabels = document.querySelectorAll(".radio-img");
+  carouselSlideLabels.forEach((label) => {
+    label.addEventListener("touchstart", handleTouchStart, { passive: true });
+    label.addEventListener("touchend", handleTouchEnd, { passive: true });
+  });
 
   // This is a hack to fix an issue with the Flowbite carousel showing the slide inbetween
   options.indicators.items.forEach((indicator) => {
@@ -135,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
           items[i].el.classList.add("hidden");
         }
       }
-      // then in 3000ms, remove hidden from all atems adjacent to the active item
       setTimeout(() => {
         if (activeItem === 0) {
           items[items.length - 1].el.classList.remove("hidden");
@@ -151,9 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // END OF CAROUSEL
-
-  // DRAW CANVAS
+  // DRAW CANVAS (make this a separate function after)
   const canvases = [0, 1, 2, 3, 4];
   const colors = ["red", "green", "blue", "yellow", "purple"];
   for (let i = 0; i < canvases.length; i++) {
@@ -167,3 +162,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+// END OF CAROUSEL
