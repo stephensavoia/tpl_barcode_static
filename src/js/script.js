@@ -1,16 +1,74 @@
 import { Carousel } from "flowbite";
+// GLOBAL VARIABLES
+var pageSubmitted = false;
+var validData = true;
+var designInput = "0";
+var barcodeNumberInput = "00000000000000";
+// END OF GLOBAL VARIABLES
+
+// VALIDATE FUNCTION
+
+function validateCardNumber(
+  number,
+  label,
+  input,
+  cardErrorMessage,
+  generalErrorMessage
+) {
+  if (number.length != 14 || !/^\d+$/.test(number)) {
+    validData = false;
+    label.classList.add("text-red-700");
+    input.classList.add(
+      "bg-red-50",
+      "border-red-500",
+      "text-red-900",
+      "placeholder-red-700",
+      "focus:ring-red-500",
+      "focus:border-red-500"
+    );
+    if (number.length == 14) {
+      cardErrorMessage.textContent = "Card number must contain only digits.";
+    } else {
+      cardErrorMessage.textContent = "Card number must be exactly 14 digits.";
+    }
+    cardErrorMessage.classList.remove("hidden");
+    generalErrorMessage.classList.remove("hidden");
+  } else {
+    validData = true;
+    label.classList.remove("text-red-700");
+    input.classList.remove(
+      "bg-red-50",
+      "border-red-500",
+      "text-red-900",
+      "placeholder-red-700",
+      "focus:ring-red-500",
+      "focus:border-red-500"
+    );
+    cardErrorMessage.classList.add("hidden");
+
+    generalErrorMessage.classList.add("hidden");
+  }
+}
+
+// END OF VALIDATE FUNCTION
 
 document.addEventListener("DOMContentLoaded", function () {
-  // STATE VARIABLES
-  var page = "select"; // There are 2 pages: select, download
-  var selectedDesign = "0";
-  var validData = true;
-  var barcodeNumber = "1234567890"; // There are 2 barcode numbers: 1234567890, 0987654321
-  // END OF STATE VARIABLES
+  // ELEMENTS
 
-  // JsBarcode("#barcode", "1234567890", {
-  //   format: "codabar",
-  // });
+  const formPage = document.getElementById("formPage");
+  const downloadPage = document.getElementById("downloadPage");
+  const cardNumberLabel = document.getElementById("cardNumberLabel");
+  const cardNumberElement = document.getElementById("cardNumber");
+  const cardNumberErrorMessage = document.getElementById(
+    "cardNumberErrorMessage"
+  );
+  let designElement = document.querySelector('input[name="design"]:checked');
+  const generateBarcodeButton = document.getElementById(
+    "generateBarcodeButton"
+  );
+  const errorMessage = document.getElementById("errorMessage");
+
+  // END OF ELEMENTS
 
   // DRAW CANVAS
 
@@ -110,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         await loadImageAndDraw(bgImage, ctx, canvas, barcodeCanvas, res);
-        // find the span element directly under canvas, and make it display none
         const spinner = canvas.nextElementSibling;
         spinner.style.display = "none";
       } catch (error) {
@@ -192,7 +249,8 @@ document.addEventListener("DOMContentLoaded", function () {
             carousel.getActiveItem().position
           ].el.querySelector('input[type="radio"]');
           activeItem.checked = true;
-          console.log(activeItem.checked);
+          designElement = activeItem;
+          console.log("designElement", designElement);
         }
       },
     };
@@ -280,31 +338,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // GENERATE BARCODE
   function generateBarcode() {
-    const cardNumberElement = document.getElementById("cardNumber");
-    const designElement = document.querySelector(
-      'input[name="design"]:checked'
+    pageSubmitted = true;
+
+    barcodeNumberInput = cardNumberElement
+      ? cardNumberElement.value ?? barcodeNumberInput
+      : barcodeNumberInput;
+    designInput = designElement
+      ? designElement.value ?? designInput
+      : designInput;
+
+    // validate barcode
+    validateCardNumber(
+      barcodeNumberInput,
+      cardNumberLabel,
+      cardNumberElement,
+      cardNumberErrorMessage,
+      errorMessage
     );
 
-    const cardNumberInput = cardNumberElement
-      ? cardNumberElement.value ?? "null"
-      : "null";
-    const designInput = designElement ? designElement.value ?? "null" : "null";
+    if (validData) {
+      // Draw to download canvas
+      const downloadPreviewCanvas = document.getElementById(
+        `downloadPreviewCanvas`
+      );
+      console.log("designInput", designInput);
+      drawWallpaper(
+        downloadPreviewCanvas,
+        designInput,
+        barcodeNumberInput,
+        "low"
+      );
 
-    alert("Card Number: " + cardNumberInput + " Design: " + designInput);
+      formPage.classList.add("hidden");
+      downloadPage.classList.remove("hidden");
+    }
   }
 
-  const generateBarcodeButton = document.getElementById(
-    "generateBarcodeButton"
-  );
   if (generateBarcodeButton) {
     generateBarcodeButton.addEventListener("click", generateBarcode);
   }
   // END OF GENERATE BARCODE
 
-  const downloadPreviewCanvas = document.getElementById(
-    `downloadPreviewCanvas`
-  );
-  if (downloadPreviewCanvas) {
-    drawWallpaper(downloadPreviewCanvas, "0", "00000000000000", "low");
+  // ON CHANGE
+  if (cardNumberElement) {
+    cardNumberElement.addEventListener("input", (e) => {
+      // Only validate if the "form" has been submitted at least once
+      if (pageSubmitted) {
+        validateCardNumber(
+          e.target.value,
+          cardNumberLabel,
+          cardNumberElement,
+          cardNumberErrorMessage,
+          errorMessage
+        );
+      }
+    });
   }
+
+  // END OF ON CHANGE
 });
