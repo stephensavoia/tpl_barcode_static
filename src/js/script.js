@@ -3,7 +3,7 @@ import { Carousel } from "flowbite";
 document.addEventListener("DOMContentLoaded", function () {
   // STATE VARIABLES
   var page = "select"; // There are 2 pages: select, download
-  var selectedDesign = "blue"; // There are 4 designs: blue, green, red, yellow
+  var selectedDesign = "0";
   var validData = true;
   var barcodeNumber = "1234567890"; // There are 2 barcode numbers: 1234567890, 0987654321
   // END OF STATE VARIABLES
@@ -14,12 +14,108 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // DRAW CANVAS
 
-  function drawWallpaper(canvas, design, barcodeNumber, res) {
+  const loadImageAndDraw = (
+    img,
+    wallpaperCtx,
+    wallpaperRef,
+    barcodeRef,
+    res
+  ) => {
+    return new Promise((resolve, reject) => {
+      img.onload = () => {
+        wallpaperCtx.drawImage(img, 0, 0);
+        const bcw =
+          res === "low"
+            ? Math.floor(barcodeRef.width / 5.81)
+            : barcodeRef.width;
+        const bch =
+          res === "low"
+            ? Math.floor(barcodeRef.height / 5.81)
+            : barcodeRef.height;
+        const x = (wallpaperRef.width - bcw) / 2;
+        const y = (wallpaperRef.height - bch) / 2;
+        wallpaperCtx.drawImage(barcodeRef, x, y, bcw, bch);
+        resolve();
+      };
+
+      img.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  async function drawWallpaper(canvas, design, barcodeNumber, res) {
+    const colors = [
+      {
+        bgColor: "#deeff2",
+        fgColor: "#0a1521",
+      },
+      {
+        bgColor: "#e7d5f2",
+        fgColor: "#2b2b4d",
+      },
+      {
+        bgColor: "#f3ecf2",
+        fgColor: "#162c35",
+      },
+      {
+        bgColor: "#ecf7e0",
+        fgColor: "#0f221b",
+      },
+      {
+        bgColor: "#e4e9f2",
+        fgColor: "#141f31",
+      },
+    ];
+
+    const dimensions = {
+      low: {
+        wWidth: 222,
+        wHeight: 472,
+        bWidth: 5,
+        bHeight: 250,
+        fSize: 80,
+        margin: 40,
+      },
+      high: {
+        wWidth: 1290,
+        wHeight: 2796,
+        bWidth: 5,
+        bHeight: 250,
+        fSize: 80,
+        margin: 40,
+      },
+    };
+
+    const barcodeCanvas = document.createElement("canvas");
+    barcodeCanvas.id = "barcodeCanvas";
+    JsBarcode(barcodeCanvas, barcodeNumber, {
+      format: "codabar",
+      height: dimensions[res].bHeight,
+      width: dimensions[res].bWidth,
+      fontSize: dimensions[res].fSize,
+      margin: dimensions[res].margin,
+      background: colors[design].bgColor,
+      lineColor: colors[design].fgColor,
+    });
+
     if (canvas) {
       const ctx = canvas.getContext("2d");
-      ctx.fillStyle = design;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      console.log(`Barcode number: ${barcodeNumber} and Res: ${res}`);
+
+      const bgImage = new Image();
+      bgImage.src =
+        res === "low"
+          ? `/img/wallpaper-${design}-low-res.png`
+          : `/img/wallpaper-${design}.png`;
+
+      try {
+        await loadImageAndDraw(bgImage, ctx, canvas, barcodeCanvas, res);
+        // find the span element directly under canvas, and make it display none
+        const spinner = canvas.nextElementSibling;
+        spinner.style.display = "none";
+      } catch (error) {
+        console.error("Error loading image:", error);
+      }
     } else {
       console.warn(`Canvas element not found`);
     }
@@ -57,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     ];
 
-    // options with default values
+    // Options with default values
     const options = {
       defaultPosition: 0,
       interval: 3000,
@@ -89,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ],
       },
 
-      // callback functions
+      // Callback functions
       onNext: () => {
         console.log("next slider item is shown");
       },
@@ -97,12 +193,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("previous slider item is shown");
       },
       onChange: () => {
-        // hide each element in items array EXCEPT for the current slide
         console.log(this);
       },
     };
 
-    // instance options object
+    // Instance options object
     const instanceOptions = {
       id: "carousel",
       override: true,
@@ -174,12 +269,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // draw to each canvas
+    // Draw to each canvas
     const canvases = [0, 1, 2, 3, 4];
-    const colors = ["red", "green", "blue", "yellow", "purple"];
     for (let i = 0; i < canvases.length; i++) {
       const canvas = document.getElementById(`canvas${i}`);
-      drawWallpaper(canvas, colors[i], 123456, "low");
+      drawWallpaper(canvas, i, "00000000000000", "low");
     }
   }
   // END OF CAROUSEL
@@ -188,6 +282,6 @@ document.addEventListener("DOMContentLoaded", function () {
     `downloadPreviewCanvas`
   );
   if (downloadPreviewCanvas) {
-    drawWallpaper(downloadPreviewCanvas, "blue", 123456, "high");
+    drawWallpaper(downloadPreviewCanvas, "0", "00000000000000", "low");
   }
 });
