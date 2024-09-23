@@ -186,14 +186,14 @@ document.addEventListener("DOMContentLoaded", function () {
       },
 
       // Callback functions
-      onNext: () => {
-        console.log("next slider item is shown");
-      },
-      onPrev: () => {
-        console.log("previous slider item is shown");
-      },
       onChange: () => {
-        console.log(this);
+        if (carousel) {
+          const activeItem = items[
+            carousel.getActiveItem().position
+          ].el.querySelector('input[type="radio"]');
+          activeItem.checked = true;
+          console.log(activeItem.checked);
+        }
       },
     };
 
@@ -277,6 +277,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   // END OF CAROUSEL
+
+  // GENERATE BARCODE
+  function generateBarcode() {
+    const cardNumberElement = document.getElementById("cardNumber");
+    const designElement = document.querySelector(
+      'input[name="design"]:checked'
+    );
+
+    const cardNumberInput = cardNumberElement
+      ? cardNumberElement.value ?? "null"
+      : "null";
+    const designInput = designElement ? designElement.value ?? "null" : "null";
+
+    alert("Card Number: " + cardNumberInput + " Design: " + designInput);
+  }
+
+  const generateBarcodeButton = document.getElementById(
+    "generateBarcodeButton"
+  );
+  if (generateBarcodeButton) {
+    generateBarcodeButton.addEventListener("click", generateBarcode);
+  }
+  // END OF GENERATE BARCODE
 
   const downloadPreviewCanvas = document.getElementById(
     `downloadPreviewCanvas`
