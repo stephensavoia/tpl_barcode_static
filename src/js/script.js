@@ -73,6 +73,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const downloadWallpaperButton = document.getElementById(
     "downloadWallpaperButton"
   );
+  const downloadButtonText = document.getElementById("downloadButtonText");
+  const downloadButtonSpinner = document.getElementById(
+    "downloadButtonSpinner"
+  );
   // END OF ELEMENTS
 
   // DRAW CANVAS
@@ -401,6 +405,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // DOWNLOAD WALLPAPER
 
   async function downloadWallpaper() {
+    downloadButtonText.classList.add("invisible");
+    downloadButtonSpinner.classList.remove("hidden");
+    downloadWallpaperButton.disabled = true;
+    downloadWallpaperButton.classList.add("cursor-not-allowed", "opacity-50");
     const downloadCanvas = document.createElement("canvas");
     downloadCanvas.width = 1290;
     downloadCanvas.height = 2796;
@@ -415,6 +423,13 @@ document.addEventListener("DOMContentLoaded", function () {
     link.href = dataURL;
     link.download = "tpl-barcode.png";
     link.click();
+    downloadButtonSpinner.classList.add("hidden");
+    downloadButtonText.classList.remove("invisible");
+    downloadWallpaperButton.disabled = false;
+    downloadWallpaperButton.classList.remove(
+      "cursor-not-allowed",
+      "opacity-50"
+    );
   }
 
   if (downloadWallpaperButton) {
