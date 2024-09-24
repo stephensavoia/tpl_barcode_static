@@ -67,7 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
     "generateBarcodeButton"
   );
   const errorMessage = document.getElementById("errorMessage");
-
+  const downloadPreviewCanvas = document.getElementById(
+    `downloadPreviewCanvas`
+  );
+  const downloadWallpaperButton = document.getElementById(
+    "downloadWallpaperButton"
+  );
   // END OF ELEMENTS
 
   // DRAW CANVAS
@@ -168,8 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
         await loadImageAndDraw(bgImage, ctx, canvas, barcodeCanvas, res);
-        const spinner = canvas.nextElementSibling;
-        spinner.style.display = "none";
+        if (res === "low") {
+          const spinner = canvas.nextElementSibling;
+          spinner.style.display = "none";
+        }
       } catch (error) {
         console.error("Error loading image:", error);
       }
@@ -357,11 +364,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     if (validData) {
-      // Draw to download canvas
-      const downloadPreviewCanvas = document.getElementById(
-        `downloadPreviewCanvas`
-      );
-      console.log("designInput", designInput);
       drawWallpaper(
         downloadPreviewCanvas,
         designInput,
@@ -394,6 +396,31 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-
   // END OF ON CHANGE
+
+  // DOWNLOAD WALLPAPER
+
+  async function downloadWallpaper() {
+    const downloadCanvas = document.createElement("canvas");
+    downloadCanvas.width = 1290;
+    downloadCanvas.height = 2796;
+    await drawWallpaper(
+      downloadCanvas,
+      designInput,
+      barcodeNumberInput,
+      "high"
+    );
+    const dataURL = downloadCanvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = "tpl-barcode.png";
+    link.click();
+  }
+
+  if (downloadWallpaperButton) {
+    downloadPreviewCanvas.addEventListener("click", downloadWallpaper);
+    downloadWallpaperButton.addEventListener("click", downloadWallpaper);
+  }
+
+  // END OF DOWNLOAD WALLPAPER
 });
