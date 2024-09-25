@@ -425,7 +425,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = "tpl-barcode.png";
+        // link.download = "tpl-barcode.png";
+        link.target = "_blank";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
