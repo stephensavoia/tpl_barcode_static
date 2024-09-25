@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const link = document.createElement("a");
         link.href = url;
         // link.download = "tpl-barcode.png";
-        link.target = "_blank";
+        // link.target = "_blank";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
