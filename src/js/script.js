@@ -419,27 +419,27 @@ document.addEventListener("DOMContentLoaded", function () {
       "high"
     );
     const dataURL = downloadCanvas.toDataURL("image/png");
-    fetch(dataURL)
-      .then((res) => res.blob())
-      .then((blob) => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        // link.download = "tpl-barcode.png";
-        // link.target = "_blank";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      })
-      .catch((err) => console.error("Error:", err));
-    downloadButtonSpinner.classList.add("hidden");
-    downloadButtonText.classList.remove("invisible");
-    downloadWallpaperButton.disabled = false;
-    downloadWallpaperButton.classList.remove(
-      "cursor-not-allowed",
-      "opacity-50"
-    );
+    try {
+      const res = await fetch(dataURL);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Error:", err);
+    } finally {
+      downloadButtonSpinner.classList.add("hidden");
+      downloadButtonText.classList.remove("invisible");
+      downloadWallpaperButton.disabled = false;
+      downloadWallpaperButton.classList.remove(
+        "cursor-not-allowed",
+        "opacity-50"
+      );
+    }
   }
 
   if (downloadWallpaperButton) {
