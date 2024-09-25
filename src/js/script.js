@@ -419,10 +419,19 @@ document.addEventListener("DOMContentLoaded", function () {
       "high"
     );
     const dataURL = downloadCanvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = "tpl-barcode.png";
-    link.click();
+    fetch(dataURL)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "tpl-barcode.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      })
+      .catch((err) => console.error("Error:", err));
     downloadButtonSpinner.classList.add("hidden");
     downloadButtonText.classList.remove("invisible");
     downloadWallpaperButton.disabled = false;
