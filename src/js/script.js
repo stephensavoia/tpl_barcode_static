@@ -261,7 +261,6 @@ document.addEventListener("DOMContentLoaded", function () {
           ].el.querySelector('input[type="radio"]');
           activeItem.checked = true;
           designElement = activeItem;
-          console.log("designElement", designElement);
         }
       },
     };
