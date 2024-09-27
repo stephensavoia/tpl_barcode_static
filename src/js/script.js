@@ -439,6 +439,14 @@ document.addEventListener("DOMContentLoaded", function () {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      // For in-app browsers
+      setTimeout(() => {
+        if (!document.body.contains(link)) {
+          alert(
+            "Wallpaper download is not supported by in-app browsers. Try using your phone's default browser."
+          );
+        }
+      }, 1000);
     } catch (err) {
       console.error("Error:", err);
       downloadErrorMessage.classList.remove("hidden");
