@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const downloadButtonSpinner = document.getElementById(
     "downloadButtonSpinner"
   );
+  const downloadErrorMessage = document.getElementById("downloadErrorMessage");
   // END OF ELEMENTS
 
   // DRAW CANVAS
@@ -430,6 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Error:", err);
+      downloadErrorMessage.classList.remove("hidden");
     } finally {
       downloadButtonSpinner.classList.add("hidden");
       downloadButtonText.classList.remove("invisible");
