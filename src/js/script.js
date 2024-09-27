@@ -420,6 +420,16 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     const dataURL = downloadCanvas.toDataURL("image/png");
     try {
+      // Check for browser support
+      if (
+        typeof Blob === "undefined" ||
+        typeof fetch === "undefined" ||
+        typeof URL.createObjectURL === "undefined"
+      ) {
+        throw new Error(
+          "Your browser doesn't support required features for this functionality."
+        );
+      }
       const res = await fetch(dataURL);
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
