@@ -439,10 +439,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      // Error message for in-app browsers that don't allow programmatic clicking
-      setTimeout(() => {
-        downloadErrorMessage.classList.remove("hidden");
-      }, 1000);
     } catch (err) {
       console.error("Error:", err);
       downloadErrorMessage.classList.remove("hidden");
