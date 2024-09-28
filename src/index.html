@@ -47,43 +47,84 @@
       >
         <div class="flex h-full flex-col justify-center gap-4 px-6 pt-6 pb-1">
           <div class="flex max-w-md flex-col gap-4">
-            <div>
-              <div class="mb-2 block">
-                <label
-                  id="cardNumberLabel"
-                  class="block text-md font-medium text-gray-900"
-                  data-testid="flowbite-label"
-                  for="cardNumber"
-                  >Library card number (14 digits)</label
-                >
-              </div>
-              <div class="flex">
-                <div class="relative w-full">
-                  <input
-                    class="block w-full border disabled:cursor-not-allowed disabled:opacity-50 border-gray-300 bg-gray-50 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 text-md rounded-lg"
-                    type="text"
-                    id="cardNumber"
-                    name="cardNumber"
-                    required=""
-                    pattern="\d{14}"
-                    autocomplete="off"
-                    maxlength="14"
-                  />
-                  <p
-                    id="cardNumberErrorMessage"
-                    class="mt-2 text-md text-red-600 hidden"
-                  >
-                    Hello
-                  </p>
+            <div class="mb-2 block">
+              <label
+                id="cardNumberLabel"
+                class="block text-md font-medium text-gray-900"
+                data-testid="flowbite-label"
+                for="cardNumber"
+                >Library card number (14 digits)</label
+              >
+            </div>
+            <div class="max-w-sm mx-auto">
+              <div id="cardNumber" class="flex mb-2 space-x-s rtl:space-x-reverse space-x-1">
+                <div>
+                  <label for="code-1" class="sr-only">First code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" autoFocus data-focus-input-init data-focus-input-next="code-2" id="code-1" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-2" class="sr-only">Second code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-1" data-focus-input-next="code-3" id="code-2" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-3" class="sr-only">Third code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-2" data-focus-input-next="code-4" id="code-3" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-4" class="sr-only">Fourth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-3" data-focus-input-next="code-5" id="code-4" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-5" class="sr-only">Fifth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-4" data-focus-input-next="code-6" id="code-5" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-6" class="sr-only">Sixth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-5" data-focus-input-next="code-7" id="code-6" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-7" class="sr-only">Seventh code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-6" data-focus-input-next="code-8" id="code-7" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-8" class="sr-only">Eighth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-7" data-focus-input-next="code-9" id="code-8" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-9" class="sr-only">Ninth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-8" data-focus-input-next="code-10" id="code-9" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-10" class="sr-only">Tenth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-9" data-focus-input-next="code-11" id="code-10" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-11" class="sr-only">Eleventh code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-10" data-focus-input-next="code-12" id="code-11" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-12" class="sr-only">Twelfth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-11" data-focus-input-next="code-13" id="code-12" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-13" class="sr-only">Thirteenth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-12" data-focus-input-next="code-14" id="code-13" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
+                </div>
+                <div>
+                  <label for="code-14" class="sr-only">Fourteenth code</label>
+                  <input type="text" pattern="\d" autocomplete="off" maxlength="1" data-focus-input-init data-focus-input-prev="code-13" id="code-14" class="block p-1 w-5 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300  focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
                 </div>
               </div>
+              <p id="cardNumberErrorMessage" class="mt-2 text-md text-red-600 hidden"></p>
             </div>
           </div>
+
           <div class="block">
             <span class="text-md font-medium text-gray-900"
               >Select wallpaper design</span
             >
           </div>
+
           <div id="carousel" class="relative w-full">
             <div class="relative h-[574px] overflow-hidden rounded-lg">
               <div id="carousel-item-0" class="hidden duration-700 ease-in-out">

@@ -1,5 +1,5 @@
 import { Carousel } from "flowbite";
-import { validateCardNumber } from "./validateCardNumber";
+import { CardNumberElement } from './CardNumberElement';
 import { drawWallpaper } from "./drawWallpaper";
 
 export function app() {
@@ -9,20 +9,18 @@ export function app() {
 
   let carousel;
 
-  // ELEMENTS
+  const errorMessage = document.getElementById("errorMessage");
+
+  const cardNumberElement = new CardNumberElement({
+    errorMessageElement: errorMessage,
+  });
 
   const formPage = document.getElementById("formPage");
   const downloadPage = document.getElementById("downloadPage");
-  const cardNumberLabel = document.getElementById("cardNumberLabel");
-  const cardNumberElement = document.getElementById("cardNumber");
-  const cardNumberErrorMessage = document.getElementById(
-    "cardNumberErrorMessage"
-  );
   let designElement = document.querySelector('input[name="design"]:checked');
   const generateBarcodeButton = document.getElementById(
     "generateBarcodeButton"
   );
-  const errorMessage = document.getElementById("errorMessage");
   const downloadPreviewCanvas = document.getElementById(
     "downloadPreviewCanvas"
   );
@@ -149,22 +147,18 @@ export function app() {
   function generateBarcode() {
     pageSubmitted = true;
 
-    barcodeNumberInput = cardNumberElement
-      ? cardNumberElement.value ?? barcodeNumberInput
-      : barcodeNumberInput;
+    barcodeNumberInput = cardNumberElement.value;
+
     designInput = designElement
       ? designElement.value ?? designInput
       : designInput;
 
-    const isValidCardNumber = validateCardNumber(
-      barcodeNumberInput,
-      cardNumberLabel,
-      cardNumberElement,
-      cardNumberErrorMessage,
-      errorMessage
-    );
+    // validate barcode
+    const isValidCardNumber = cardNumberElement.isValid();
 
     if (isValidCardNumber) {
+      cardNumberElement.onValidateSuccess();
+
       drawWallpaper(
         downloadPreviewCanvas,
         designInput,
@@ -174,6 +168,8 @@ export function app() {
 
       formPage.classList.add("hidden");
       downloadPage.classList.remove("hidden");
+    } else {
+      cardNumberElement.onValidateError();
     }
   }
 
@@ -181,22 +177,6 @@ export function app() {
     generateBarcodeButton.addEventListener("click", generateBarcode);
   }
   // END OF GENERATE BARCODE
-
-  // ON CHANGE
-  if (cardNumberElement) {
-    cardNumberElement.addEventListener("input", (e) => {
-      if (pageSubmitted) {
-        validateCardNumber(
-          e.target.value,
-          cardNumberLabel,
-          cardNumberElement,
-          cardNumberErrorMessage,
-          errorMessage
-        );
-      }
-    });
-  }
-  // END OF ON CHANGE
 
   // DOWNLOAD WALLPAPER
 
