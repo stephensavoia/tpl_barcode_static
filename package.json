@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite src --open",
-    "tailwind": "npx tailwindcss -i ./src/css/input.css -o ./src/css/styles.css --watch",
-    "build": "vite build src",
+    "tailwind": "npx tailwindcss -i ./src/css/input.css -o ./src/css/styles.css",
+    "tailwind:watch": "npm run tailwind --watch",
+    "build": "npm run tailwind && vite build src",
     "preview": "vite preview src --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
