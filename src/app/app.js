@@ -1,59 +1,11 @@
 import { Carousel } from "flowbite";
+import { validateCardNumber } from './validateCardNumber';
 
-// GLOBAL VARIABLES
-var pageSubmitted = false;
-var validData = true;
-var designInput = "0";
-var barcodeNumberInput = "00000000000000";
-// END OF GLOBAL VARIABLES
+export function app() {
+  let pageSubmitted = false;
+  let designInput = "0";
+  let barcodeNumberInput = "00000000000000";
 
-// VALIDATE FUNCTION
-
-function validateCardNumber(
-  number,
-  label,
-  input,
-  cardErrorMessage,
-  generalErrorMessage
-) {
-  if (number.length != 14 || !/^\d+$/.test(number)) {
-    validData = false;
-    label.classList.add("text-red-700");
-    input.classList.add(
-      "bg-red-50",
-      "border-red-500",
-      "text-red-900",
-      "placeholder-red-700",
-      "focus:ring-red-500",
-      "focus:border-red-500"
-    );
-    if (number.length == 14) {
-      cardErrorMessage.textContent = "Card number must contain only digits.";
-    } else {
-      cardErrorMessage.textContent = "Card number must be exactly 14 digits.";
-    }
-    cardErrorMessage.classList.remove("hidden");
-    generalErrorMessage.classList.remove("hidden");
-  } else {
-    validData = true;
-    label.classList.remove("text-red-700");
-    input.classList.remove(
-      "bg-red-50",
-      "border-red-500",
-      "text-red-900",
-      "placeholder-red-700",
-      "focus:ring-red-500",
-      "focus:border-red-500"
-    );
-    cardErrorMessage.classList.add("hidden");
-
-    generalErrorMessage.classList.add("hidden");
-  }
-}
-
-// END OF VALIDATE FUNCTION
-
-document.addEventListener("DOMContentLoaded", function () {
   let carousel;
 
   // ELEMENTS
@@ -362,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
       : designInput;
 
     // validate barcode
-    validateCardNumber(
+    const isValidCardNumber = validateCardNumber(
       barcodeNumberInput,
       cardNumberLabel,
       cardNumberElement,
@@ -370,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
       errorMessage
     );
 
-    if (validData) {
+    if (isValidCardNumber) {
       drawWallpaper(
         downloadPreviewCanvas,
         designInput,
@@ -460,6 +412,4 @@ document.addEventListener("DOMContentLoaded", function () {
     downloadPreviewCanvas.addEventListener("click", downloadWallpaper);
     downloadWallpaperButton.addEventListener("click", downloadWallpaper);
   }
-
-  // END OF DOWNLOAD WALLPAPER
-});
+}
