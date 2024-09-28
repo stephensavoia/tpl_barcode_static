@@ -5,6 +5,7 @@ node_modules
 .env
 .dev.vars
 src/dist
+src/css/styles.css
 src/dist/css/styles.css
 
 .wrangler
