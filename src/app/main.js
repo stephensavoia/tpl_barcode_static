@@ -1,4 +1,5 @@
 import { Carousel } from "flowbite";
+
 // GLOBAL VARIABLES
 var pageSubmitted = false;
 var validData = true;
@@ -53,6 +54,8 @@ function validateCardNumber(
 // END OF VALIDATE FUNCTION
 
 document.addEventListener("DOMContentLoaded", function () {
+  let carousel;
+
   // ELEMENTS
 
   const formPage = document.getElementById("formPage");
@@ -272,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
       override: true,
     };
 
-    const carousel = new Carousel(
+    carousel = new Carousel(
       carouselElement,
       items,
       options,
