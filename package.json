@@ -7,7 +7,7 @@
     "dev": "vite src --open",
     "tailwind": "npx tailwindcss -i ./src/css/input.css -o ./src/css/styles.css --watch",
     "build": "vite build src",
-    "preview": "vite preview src",
+    "preview": "vite preview src --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
