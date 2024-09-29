@@ -6,8 +6,6 @@ export function app() {
   // GLOBAL VARIABLES
   var pageSubmitted = false;
   var validData = true;
-  var designInput = "0";
-  var barcodeNumberInput = "00000000000000";
   let carousel;
   // END OF GLOBAL VARIABLES
 
@@ -65,7 +63,6 @@ export function app() {
   const cardNumberErrorMessage = document.getElementById(
     "cardNumberErrorMessage"
   );
-  let designElement = document.querySelector('input[name="design"]:checked');
   const generateBarcodeButton = document.getElementById(
     "generateBarcodeButton"
   );
@@ -149,7 +146,6 @@ export function app() {
             carousel.getActiveItem().position
           ].el.querySelector('input[type="radio"]');
           activeItem.checked = true;
-          designElement = activeItem;
         }
       },
     };
@@ -234,12 +230,11 @@ export function app() {
   function generateBarcode() {
     pageSubmitted = true;
 
-    barcodeNumberInput = cardNumberElement
-      ? cardNumberElement.value ?? barcodeNumberInput
-      : barcodeNumberInput;
-    designInput = designElement
-      ? designElement.value ?? designInput
-      : designInput;
+    let barcodeNumberInput = cardNumberElement
+      ? cardNumberElement.value ?? "00000000000000"
+      : "00000000000000";
+    let designInput =
+      document.querySelector('input[name="design"]:checked')?.value || "0";
 
     // validate barcode
     validateCardNumber(
@@ -288,6 +283,11 @@ export function app() {
   // DOWNLOAD WALLPAPER
 
   async function downloadWallpaper() {
+    let barcodeNumberInput = cardNumberElement
+      ? cardNumberElement.value ?? "00000000000000"
+      : "00000000000000";
+    let designInput =
+      document.querySelector('input[name="design"]:checked')?.value || "0";
     downloadButtonText.classList.add("invisible");
     downloadButtonSpinner.classList.remove("hidden");
     downloadWallpaperButton.disabled = true;
