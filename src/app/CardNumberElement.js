@@ -1,52 +1,57 @@
 export class CardNumberElement {
-  constructor({
-    errorMessageElement,
-  }) {
-    this.cardNumberElement = document.getElementById('cardNumber');
-    this.cardNumberLabelElement = document.getElementById('cardNumberLabel');
-    this.cardNumberErrorElement = document.getElementById("cardNumberErrorMessage");
-    this.errorMessageElement = errorMessageElement;
+  constructor() {
+    this.cardNumberElement = document.getElementById("cardNumber");
+    this.cardNumberLabelElement = document.getElementById("cardNumberLabel");
+    this.cardNumberErrorElement = document.getElementById(
+      "cardNumberErrorMessage"
+    );
+    this.bottomCardNumberErrorMessageElement = document.getElementById(
+      "bottomCardNumberErrorMessage"
+    );
     this.init();
   }
 
   init() {
-    const cardNumberElement = this.cardNumberElement;
+    // document.querySelectorAll("[data-focus-input-init]").forEach((element) => {
+    //   element.addEventListener("focus", () => element.select());
+    //   element.addEventListener("keydown", function () {
+    //     setTimeout(() => {
+    //       const prev = cardNumberElement.querySelector(
+    //         `#${this.getAttribute("data-focus-input-prev")}`
+    //       );
+    //       const next = cardNumberElement.querySelector(
+    //         `#${this.getAttribute("data-focus-input-next")}`
+    //       );
 
-    document.querySelectorAll('[data-focus-input-init]').forEach((element) => {
-      element.addEventListener('focus', () => element.select());
-      element.addEventListener('keydown', function() {
-        setTimeout(() => {
-          const prev = cardNumberElement.querySelector(`#${this.getAttribute('data-focus-input-prev')}`);
-          const next = cardNumberElement.querySelector(`#${this.getAttribute('data-focus-input-next')}`);
+    //       if (this.value.length === 0) {
+    //         prev?.focus();
+    //       } else {
+    //         next?.focus();
+    //       }
+    //     });
+    //   });
+    // });
 
-          if (this.value.length === 0) {
-            prev?.focus();
-          } else {
-            next?.focus();
-          }
-        });
-      });
-    });
-
-    this.cardNumberElement.addEventListener('input', () => {
+    this.cardNumberElement.addEventListener("input", () => {
       if (this.isValid()) {
-        this.onValidateSuccess();
+        this.hideErrorMessages();
       }
     });
   }
 
   get value() {
-    const values = [];
+    // const values = [];
 
-    for (let i = 1; i <= 14; i += 1) {
-      const input = this.cardNumberElement.querySelector(`#code-${i}`);
-      values.push(input.value);
-    }
+    // for (let i = 1; i <= 14; i += 1) {
+    //   const input = this.cardNumberElement.querySelector(`#code-${i}`);
+    //   values.push(input.value);
+    // }
 
-    return values.join('');
+    // return values.join("");
+    return this.cardNumberElement.value;
   }
 
-  onValidateSuccess() {
+  hideErrorMessages() {
     this.cardNumberLabelElement.classList.remove("text-red-700");
     this.cardNumberElement.classList.remove(
       "bg-red-50",
@@ -57,10 +62,10 @@ export class CardNumberElement {
       "focus:border-red-500"
     );
     this.cardNumberErrorElement.classList.add("hidden");
-    this.errorMessageElement.classList.add("hidden");
+    this.bottomCardNumberErrorMessageElement.classList.add("hidden");
   }
 
-  onValidateError() {
+  showErrorMessages() {
     this.cardNumberLabelElement.classList.add("text-red-700");
     this.cardNumberElement.classList.add(
       "bg-red-50",
@@ -71,12 +76,14 @@ export class CardNumberElement {
       "focus:border-red-500"
     );
     if (this.value.length == 14) {
-      this.cardNumberErrorElement.textContent = "Card number must contain only digits.";
+      this.cardNumberErrorElement.textContent =
+        "Card number must contain only digits.";
     } else {
-      this.cardNumberErrorElement.textContent = "Card number must be exactly 14 digits.";
+      this.cardNumberErrorElement.textContent =
+        "Card number must be 14 digits.";
     }
     this.cardNumberErrorElement.classList.remove("hidden");
-    this.errorMessageElement.classList.remove("hidden");
+    this.bottomCardNumberErrorMessageElement.classList.remove("hidden");
   }
 
   isValid() {

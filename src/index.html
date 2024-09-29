@@ -68,13 +68,12 @@
                     pattern="\d{14}"
                     autocomplete="off"
                     maxlength="14"
+                    autofocus
                   />
                   <p
                     id="cardNumberErrorMessage"
                     class="mt-2 text-md text-red-600 hidden"
-                  >
-                    Hello
-                  </p>
+                  ></p>
                 </div>
               </div>
             </div>
@@ -626,7 +625,7 @@
             >
           </button>
           <div
-            id="errorMessage"
+            id="bottomCardNumberErrorMessage"
             class="flex flex-col gap-2 p-4 text-md border-red-500 bg-red-100 text-red-700 dark:bg-red-200 dark:text-red-800 rounded-lg -translate-y-6 hidden"
             role="alert"
           >
