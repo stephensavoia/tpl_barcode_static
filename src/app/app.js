@@ -6,26 +6,25 @@ import { downloadWallpaper } from "./downloadWallpaper";
 
 export function app() {
   if (isInAppBrowser()) {
-    showOpenInBrowserMessage();
+    showOpenInBrowserMessage(); // checkBrowser.js
   } else {
+    const cardNumberElement = new CardNumberElement(); // CardNumberElement.js
+
+    createCarousel(); //createCarousel.js
+
     const generateBarcodeButton = document.getElementById(
       "generateBarcodeButton"
     );
+    generateBarcodeButton?.addEventListener("click", function () {
+      generateBarcode(cardNumberElement, downloadPreviewCanvas);
+    }); // generateBarcode.js
+
     const downloadPreviewCanvas = document.getElementById(
       `downloadPreviewCanvas`
     );
     const downloadWallpaperButton = document.getElementById(
       "downloadWallpaperButton"
     );
-
-    const cardNumberElement = new CardNumberElement(); // CardNumberElement.js
-
-    createCarousel(); //createCarousel.js
-
-    generateBarcodeButton?.addEventListener("click", function () {
-      generateBarcode(cardNumberElement, downloadPreviewCanvas);
-    }); // generateBarcode.js
-
     if (downloadWallpaperButton) {
       downloadPreviewCanvas.addEventListener("click", function () {
         downloadWallpaper(cardNumberElement, downloadWallpaperButton);
