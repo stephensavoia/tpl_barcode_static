@@ -91,8 +91,8 @@ export function createCarousel() {
     });
 
     // Touch slide controls
-    var touchStartX = 0;
-    var touchEndX = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     function handleTouchStart(event) {
       touchStartX = event.targetTouches[0].clientX;
@@ -103,6 +103,7 @@ export function createCarousel() {
 
       if (touchStartX - touchEndX < -50) {
         carousel.prev();
+        console.log(this);
       } else if (touchStartX - touchEndX > 50) {
         carousel.next();
       }
