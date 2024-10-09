@@ -115,28 +115,28 @@ export function createCarousel() {
     });
 
     // This is a hack to fix an issue with the Flowbite carousel showing the slide inbetween
-    // options.indicators.items.forEach((indicator) => {
-    //   indicator.el.addEventListener("click", () => {
-    //     const activeItem = carousel.getActiveItem().position;
-    //     for (let i = 0; i < items.length; i++) {
-    //       if (i !== activeItem) {
-    //         items[i].el.classList.add("hidden");
-    //       }
-    //     }
-    //     setTimeout(() => {
-    //       if (activeItem === 0) {
-    //         items[items.length - 1].el.classList.remove("hidden");
-    //         items[activeItem + 1].el.classList.remove("hidden");
-    //       } else if (activeItem === items.length - 1) {
-    //         items[activeItem - 1].el.classList.remove("hidden");
-    //         items[0].el.classList.remove("hidden");
-    //       } else {
-    //         items[activeItem - 1].el.classList.remove("hidden");
-    //         items[activeItem + 1].el.classList.remove("hidden");
-    //       }
-    //     }, 500);
-    //   });
-    // });
+    options.indicators.items.forEach((indicator) => {
+      indicator.el.addEventListener("click", () => {
+        const activeItem = carousel.getActiveItem().position;
+        for (let i = 0; i < items.length; i++) {
+          if (i !== activeItem) {
+            items[i].el.classList.add("hidden");
+          }
+        }
+        setTimeout(() => {
+          if (activeItem === 0) {
+            items[items.length - 1].el.classList.remove("hidden");
+            items[activeItem + 1].el.classList.remove("hidden");
+          } else if (activeItem === items.length - 1) {
+            items[activeItem - 1].el.classList.remove("hidden");
+            items[0].el.classList.remove("hidden");
+          } else {
+            items[activeItem - 1].el.classList.remove("hidden");
+            items[activeItem + 1].el.classList.remove("hidden");
+          }
+        }, 500);
+      });
+    });
 
     // Draw to each canvas
     const canvases = [0, 1, 2, 3, 4];
